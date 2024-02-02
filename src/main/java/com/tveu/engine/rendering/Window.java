@@ -14,6 +14,7 @@ import static java.sql.Types.NULL;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11C.*;
+import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
 import static org.lwjgl.system.MemoryStack.stackPush;
 
 public class Window {
@@ -117,8 +118,6 @@ public class Window {
             if (KeyListener.isKeyPressed(GLFW_KEY_SPACE)){
                 System.out.println("Tveu Engine");
             }
-
-
         }
     }
 
