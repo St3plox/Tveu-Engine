@@ -1,7 +1,9 @@
 package com.tveu.engine.rendering;
 
-import com.tveu.engine.core.KeyListener;
-import com.tveu.engine.core.MouseListener;
+import com.tveu.engine.core.LevelEditorScene;
+import com.tveu.engine.core.Time;
+import com.tveu.engine.core.input.KeyListener;
+import com.tveu.engine.core.input.MouseListener;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
@@ -14,7 +16,6 @@ import static java.sql.Types.NULL;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11C.*;
-import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
 import static org.lwjgl.system.MemoryStack.stackPush;
 
 public class Window {
@@ -44,11 +45,13 @@ public class Window {
 
         // Configure GLFW
         glfwDefaultWindowHints(); // optional, the current window hints are already the default
-        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
+        glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE);
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
+        glfwWindowHint(GLFW_MAXIMIZED, GLFW_FALSE);
+        // the window will be resizable
 
         // Create the window
-        window = glfwCreateWindow(width, height, title, glfwGetPrimaryMonitor(), NULL);
+        window = glfwCreateWindow(width, height, title, NULL, NULL);
 
         if (window == NULL)
             throw new RuntimeException("Failed to create the GLFW window");
@@ -86,9 +89,21 @@ public class Window {
 
         // Make the window visible
         glfwShowWindow(window);
+        // This line is critical for LWJGL's interoperation with GLFW's
+        // OpenGL context, or any context that is managed externally.
+        // LWJGL detects the context that is current in the current thread,
+        // creates the GLCapabilities instance and makes the OpenGL
+        // bindings available for use.
+        GL.createCapabilities();
+
     }
 
     private static void loop() {
+
+        float beginTime = Time.getTime();
+        float endTime;
+        float dt = -1.0f;
+
         // This line is critical for LWJGL's interoperation with GLFW's
         // OpenGL context, or any context that is managed externally.
         // LWJGL detects the context that is current in the current thread,
@@ -97,28 +112,39 @@ public class Window {
         GL.createCapabilities();
 
         // Set the clear color
-        glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+        glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+
+        LevelEditorScene scene = new LevelEditorScene();
+        scene.init();
 
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
         while (!glfwWindowShouldClose(window)) {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
-
-            glfwSwapBuffers(window); // swap the color buffers
+            // swap the color buffers
 
             glfwSetCursorPosCallback(window, MouseListener::mousePosCallback);
             glfwSetMouseButtonCallback(window, MouseListener::mouseButtonCallback);
             glfwSetScrollCallback(window, MouseListener::mouseScrollCallback);
             glfwSetKeyCallback(window, KeyListener::keyCallback);
 
-            // Poll for window events. The key callback above will only be
-            // invoked during this call
+
+
+
+            if (dt >= 0) {
+                scene.update(dt);
+            }
+
+
+            endTime = Time.getTime();
+            dt = endTime - beginTime;
+            beginTime = endTime;
+
+            glfwSwapBuffers(window);
             glfwPollEvents();
 
-            if (KeyListener.isKeyPressed(GLFW_KEY_SPACE)){
-                System.out.println("Tveu Engine");
-            }
         }
+
     }
 
 }
