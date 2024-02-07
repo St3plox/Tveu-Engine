@@ -1,32 +1,20 @@
 package com.tveu.engine.rendering;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.tveu.engine.Utils.FileManager;
 
 import static org.lwjgl.opengl.GL20.*;
-import static org.lwjgl.opengl.GL20.glCompileShader;
 
 public class Shader extends AbstractShader {
-    private int ID;
+    private final int ID;
 
     public Shader(String vertexPath, String fragmentPath) {
 
-        String vertexShaderSrc = readGLSLFile(vertexPath);
-        String fragmentShaderSrc = readGLSLFile(fragmentPath);
+        String vertexShaderSrc = FileManager.writeFileToString(vertexPath);
+        String fragmentShaderSrc = FileManager.writeFileToString(fragmentPath);
 
         //compile shaders
-        int vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
-        glShaderSource(vertexShaderID, vertexShaderSrc);
-        glCompileShader(vertexShaderID);
-        compileErrorsCheck(vertexShaderID);
-
-        int fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
-        glShaderSource(fragmentShaderID, fragmentShaderSrc);
-        glCompileShader(fragmentShaderID);
-        compileErrorsCheck(fragmentShaderID);
+        int vertexShaderID = compileShader(GL_VERTEX_SHADER, vertexShaderSrc);
+        int fragmentShaderID = compileShader(GL_FRAGMENT_SHADER, fragmentShaderSrc);
 
         // shader Program
         ID = glCreateProgram();
@@ -35,7 +23,7 @@ public class Shader extends AbstractShader {
         glLinkProgram(ID);
 
         int success = glGetProgrami(ID, GL_LINK_STATUS);
-        if(success == GL_FALSE){
+        if (success == GL_FALSE) {
             int len = glGetProgrami(ID, GL_INFO_LOG_LENGTH);
             System.out.println("ERROR: Shader compilation failed.");
             System.out.println(glGetShaderInfoLog(ID, len));
@@ -46,20 +34,14 @@ public class Shader extends AbstractShader {
         glDeleteShader(fragmentShaderID);
     }
 
-    private String readGLSLFile(String filePath) {
+    private int compileShader(int shaderType, String shaderSrc) {
 
-        StringBuilder shaderSource = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        int shaderID = glCreateShader(shaderType);
+        glShaderSource(shaderID, shaderSrc);
+        glCompileShader(shaderID);
+        compileErrorsCheck(shaderID);
 
-            String line;
-            while ((line = reader.readLine()) != null) {
-                shaderSource.append(line).append("\n");
-            }
-        } catch (IOException e) {
-            Logger logger = Logger.getAnonymousLogger();
-            logger.log(Level.SEVERE, "Invalid path of the GLSL File", e);
-        }
-        return shaderSource.toString();
+        return shaderID;
     }
 
     private void compileErrorsCheck(int shaderID) {
