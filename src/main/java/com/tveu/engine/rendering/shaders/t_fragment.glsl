@@ -1,9 +1,18 @@
-#version 330 core
 
-out vec4 FragColor; // Output color to the framebuffer
-in vec3 interpolatedColor; // Input interpolated color from the vertex shader\n" +
+
+#version 330 core
+out vec4 FragColor;
+
+in vec3 ourColor;
+in vec2 TexCoord;
+
+// texture samplers
+uniform sampler2D texture1;
+uniform sampler2D texture2;
 
 void main()
 {
-    FragColor = vec4(interpolatedColor, 1.0); // Set the fragment color to the interpolated color\n" +
+    // linearly interpolate between both textures (80% container, 20% awesomeface)
+    FragColor = mix(texture(texture1, TexCoord), texture(texture2, TexCoord), 0.2);
 }
+

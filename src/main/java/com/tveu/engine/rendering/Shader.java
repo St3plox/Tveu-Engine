@@ -1,6 +1,6 @@
 package com.tveu.engine.rendering;
 
-import com.tveu.engine.Utils.FileManager;
+import com.tveu.engine.utils.FileManager;
 
 import static org.lwjgl.opengl.GL20.*;
 
@@ -9,8 +9,8 @@ public class Shader extends AbstractShader {
 
     public Shader(String vertexPath, String fragmentPath) {
 
-        String vertexShaderSrc = FileManager.writeFileToString(vertexPath);
-        String fragmentShaderSrc = FileManager.writeFileToString(fragmentPath);
+        String vertexShaderSrc = FileManager.readFileToString(vertexPath);
+        String fragmentShaderSrc = FileManager.readFileToString(fragmentPath);
 
         //compile shaders
         int vertexShaderID = compileShader(GL_VERTEX_SHADER, vertexShaderSrc);
@@ -32,6 +32,10 @@ public class Shader extends AbstractShader {
 
         glDeleteShader(vertexShaderID);
         glDeleteShader(fragmentShaderID);
+    }
+
+    public int getID() {
+        return ID;
     }
 
     private int compileShader(int shaderType, String shaderSrc) {
