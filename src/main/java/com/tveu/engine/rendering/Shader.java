@@ -1,6 +1,10 @@
 package com.tveu.engine.rendering;
 
 import com.tveu.engine.utils.FileManager;
+import org.joml.Matrix4f;
+import org.lwjgl.BufferUtils;
+
+import java.nio.FloatBuffer;
 
 import static org.lwjgl.opengl.GL20.*;
 
@@ -62,6 +66,15 @@ public class Shader extends AbstractShader {
     @Override
     public void use() {
         glUseProgram(ID);
+    }
+
+    public void setMatrix4f(String name, Matrix4f mat) {
+
+        int matLoc = glGetUniformLocation(this.ID, name);
+
+        FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(16);
+        mat.get(matrixBuffer);
+        glUniformMatrix4fv(matLoc, false, matrixBuffer);
     }
 
 

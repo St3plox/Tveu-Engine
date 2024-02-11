@@ -96,6 +96,7 @@ public class Window {
         // creates the GLCapabilities instance and makes the OpenGL
         // bindings available for use.
         GL.createCapabilities();
+        glEnable(GL_DEPTH_TEST);
 
     }
 
@@ -113,7 +114,7 @@ public class Window {
         GL.createCapabilities();
 
         // Set the clear color
-        glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
         LevelEditorScene scene = new LevelEditorScene();
         scene.init();
