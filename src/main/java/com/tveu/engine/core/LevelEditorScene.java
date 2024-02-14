@@ -1,5 +1,7 @@
 package com.tveu.engine.core;
 
+import com.tveu.engine.core.input.MouseListener;
+import com.tveu.engine.rendering.Camera;
 import com.tveu.engine.rendering.Shader;
 import com.tveu.engine.rendering.Texture;
 import org.joml.Matrix4f;
@@ -64,8 +66,11 @@ public class LevelEditorScene extends Scene {
     };
 
     Vector3f[] cubePositions = {
+
             new Vector3f(0.0f, 0.0f, 0.0f),
+
             new Vector3f(2.0f, 5.0f, -15.0f),
+
             new Vector3f(-1.5f, -2.2f, -2.5f),
 
             new Vector3f(-3.8f, -2.0f, -12.3f),
@@ -82,6 +87,9 @@ public class LevelEditorScene extends Scene {
 
             new Vector3f(-1.3f, 1.0f, -1.5f)
     };
+
+    private float lastMouseX = MouseListener.getLastMouseX();
+    float lastMouseY = MouseListener.getLastMouseY();
 
 
     //
@@ -112,6 +120,9 @@ public class LevelEditorScene extends Scene {
     Texture texture1;
 
     Texture texture2;
+
+    Camera camera = new Camera();
+
 
     @Override
     public void init() {
@@ -153,45 +164,40 @@ public class LevelEditorScene extends Scene {
         shader.use();
         shader.setInt("texture1", 0);
         shader.setInt("texture2", 1);
-
-
     }
 
     @Override
     public void update(float dt) {
-      /*  glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texture1.getID());*/
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, texture2.getID());
         shader.use();
 
+        Matrix4f view = camera.getViewMatrix();
+        Matrix4f projection = new Matrix4f().perspective((float) Math.toRadians(camera.getZoom()), (float) Camera.SCR_WIDTH / Camera.SCR_HEIGHT, 0.1f, 100f);
 
-        var model = new Matrix4f();
-        model.rotate((float) glfwGetTime(), new Vector3f(0.5f, 1.0f, 0.0f));
+        float xoffset = MouseListener.getMouseX() - lastMouseX;
+        float yoffset = lastMouseY - MouseListener.getMouseY(); // reversed since y-coordinates go from bottom to top
 
-        var view = new Matrix4f();
-        //translating the scene in the reverse direction of where we want to mov
-        view.translate(new Vector3f(0.0f, 0.0f, -10.0f));
+        lastMouseX = MouseListener.getMouseX();
+        lastMouseY = MouseListener.getMouseY();
+        // Update camera input
+        camera.processKeyboardInput(dt);
+        camera.processMouseInput(xoffset, yoffset);
 
-        var projection = new Matrix4f();
-        projection.perspective(0.25f, 1000f / 800f, 0.1f, 100f);
-
-        shader.setMatrix4f("model", model);
         shader.setMatrix4f("view", view);
         shader.setMatrix4f("projection", projection);
-
 
         glBindVertexArray(vaoID);
 
         for (int i = 0; i < 10; i++) {
-            model = new Matrix4f();
-            model.translate(cubePositions[i]);
-            model.rotate((float) (i * glfwGetTime()), new Vector3f(0.0f, 0.0f, 1.0f));
-            model.rotate((float) (i * glfwGetTime()), new Vector3f(0.0f, 1.0f, 0.0f));
-            model.rotate((float) (i * glfwGetTime()), new Vector3f(1.0f, 0.0f, 0.0f));
+            Matrix4f model = new Matrix4f().translate(cubePositions[i])
+                    .rotate((float) (i * glfwGetTime()), new Vector3f(0.0f, 0.0f, 1.0f))
+                    .rotate((float) (i * glfwGetTime()), new Vector3f(0.0f, 1.0f, 0.0f))
+                    .rotate((float) (i * glfwGetTime()), new Vector3f(1.0f, 0.0f, 0.0f));
             shader.setMatrix4f("model", model);
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
-//        glDrawElements(GL_TRIANGLES, indices.length, GL_UNSIGNED_INT, 0);
     }
+
+
 }

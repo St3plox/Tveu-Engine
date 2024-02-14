@@ -4,6 +4,7 @@ import com.tveu.engine.core.LevelEditorScene;
 import com.tveu.engine.core.Time;
 import com.tveu.engine.core.input.KeyListener;
 import com.tveu.engine.core.input.MouseListener;
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
@@ -130,6 +131,7 @@ public class Window {
             glfwSetScrollCallback(window, MouseListener::mouseScrollCallback);
             glfwSetKeyCallback(window, KeyListener::keyCallback);
 
+            glfwSetInputMode(window, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_DISABLED);
 
 
 
