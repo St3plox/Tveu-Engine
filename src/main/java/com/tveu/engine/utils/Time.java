@@ -1,4 +1,4 @@
-package com.tveu.engine.core;
+package com.tveu.engine.utils;
 
 public class Time {
 

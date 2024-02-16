@@ -1,7 +1,7 @@
 package com.tveu.engine.rendering;
 
 import com.tveu.engine.core.LevelEditorScene;
-import com.tveu.engine.core.Time;
+import com.tveu.engine.utils.Time;
 import com.tveu.engine.core.input.KeyListener;
 import com.tveu.engine.core.input.MouseListener;
 import org.lwjgl.glfw.GLFW;

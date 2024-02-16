@@ -1,6 +1,6 @@
 package com.tveu.engine.core;
 
-public abstract class Scene {
+public abstract class Scene implements Updatable{
     public Scene() {
     }
 
