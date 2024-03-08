@@ -1,6 +1,8 @@
 package com.tveu.engine.rendering;
 
 import com.tveu.engine.core.LevelEditorScene;
+import com.tveu.engine.core.LightTestScene;
+import com.tveu.engine.core.Scene;
 import com.tveu.engine.utils.Time;
 import com.tveu.engine.core.input.KeyListener;
 import com.tveu.engine.core.input.MouseListener;
@@ -115,9 +117,9 @@ public class Window {
         GL.createCapabilities();
 
         // Set the clear color
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
-        LevelEditorScene scene = new LevelEditorScene();
+        LightTestScene scene = new LightTestScene();
         scene.init();
 
         // Run the rendering loop until the user has attempted to close

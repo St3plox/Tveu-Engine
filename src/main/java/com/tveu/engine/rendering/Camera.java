@@ -110,4 +110,8 @@ public class Camera {
     public float getZoom() {
         return zoom;
     }
+
+    public Vector3f getPos() {
+        return new Vector3f(pos);
+    }
 }
