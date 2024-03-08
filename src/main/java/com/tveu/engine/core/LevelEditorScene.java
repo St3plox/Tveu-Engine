@@ -9,6 +9,7 @@ import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 
 import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 
 import static org.lwjgl.glfw.GLFW.glfwGetTime;
 import static org.lwjgl.opengl.GL11.*;
@@ -93,7 +94,7 @@ public class LevelEditorScene extends Scene {
 
 
     //
-/*    int[] indices = {
+    int[] indices = {
             // Front
             0, 1, 2,
             1, 3, 2,
@@ -109,7 +110,8 @@ public class LevelEditorScene extends Scene {
             // Back
             12, 13, 14,
             13, 15, 14
-    };*/
+    };
+
     private int vaoID, vboID, eboID;
 
     FloatBuffer vertexBuffer = BufferUtils.createFloatBuffer(vertices.length);
@@ -140,11 +142,11 @@ public class LevelEditorScene extends Scene {
 
         glBindBuffer(GL_ARRAY_BUFFER, vboID);
         glBufferData(GL_ARRAY_BUFFER, vertexBuffer, GL_STATIC_DRAW);
-/*
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
         IntBuffer elementBuffer = BufferUtils.createIntBuffer(indices.length);
         elementBuffer.put(indices).flip();
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementBuffer, GL_STATIC_DRAW);*/
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementBuffer, GL_STATIC_DRAW);
+
 
         glVertexAttribPointer(0, 3, GL_FLOAT, false, 5 * Float.BYTES, 0);
         glEnableVertexAttribArray(0);

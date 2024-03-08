@@ -2,6 +2,7 @@ package com.tveu.engine.rendering;
 
 import com.tveu.engine.utils.FileManager;
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 
 import java.nio.FloatBuffer;
@@ -62,12 +63,6 @@ public class Shader extends AbstractShader {
         }
     }
 
-
-    @Override
-    public void use() {
-        glUseProgram(ID);
-    }
-
     public void setMatrix4f(String name, Matrix4f mat) {
 
         int matLoc = glGetUniformLocation(this.ID, name);
@@ -77,5 +72,17 @@ public class Shader extends AbstractShader {
         glUniformMatrix4fv(matLoc, false, matrixBuffer);
     }
 
+
+    public void setVec3(String name, float v0, float v1, float v2) {
+        glUniform3f(glGetUniformLocation(ID, name), v0, v1, v2);
+    }
+    public void setVec3(String name, Vector3f vec3f) {
+        glUniform3f(glGetUniformLocation(ID, name), vec3f.x, vec3f.y, vec3f.z);
+    }
+
+    @Override
+    public void use() {
+        glUseProgram(ID);
+    }
 
 }

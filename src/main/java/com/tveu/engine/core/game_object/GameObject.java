@@ -27,11 +27,13 @@ public class GameObject implements Updatable {
     }
 
     public void addComponent(Component component) {
+        component.initialize();
         components.put(component.getClass(), component);
     }
 
     public void removeComponent(Component component) {
         components.remove(component.getClass(), component);
+        component.clean();
     }
 
     @Override
