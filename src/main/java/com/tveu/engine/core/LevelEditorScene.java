@@ -174,7 +174,7 @@ public class LevelEditorScene extends Scene {
         glBindTexture(GL_TEXTURE_2D, texture2.getID());
         shader.use();
 
-        Matrix4f view = camera.getViewMatrix();
+        Matrix4f view = camera.transform.getViewMatrix();
         Matrix4f projection = new Matrix4f().perspective((float) Math.toRadians(camera.getZoom()), (float) Camera.SCR_WIDTH / Camera.SCR_HEIGHT, 0.1f, 100f);
 
         float xoffset = MouseListener.getMouseX() - lastMouseX;

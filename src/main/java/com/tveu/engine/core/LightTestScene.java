@@ -118,10 +118,10 @@ public class LightTestScene extends Scene {
         lightingShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
         lightingShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
         lightingShader.setVec3("lightPos", lightPos);
-        lightingShader.setVec3("viewPos", camera.getPos());
+        lightingShader.setVec3("viewPos", camera.transform.getPos());
 
 
-        Matrix4f view = camera.getViewMatrix();
+        Matrix4f view = camera.transform.getViewMatrix();
         Matrix4f projection = new Matrix4f().perspective((float) Math.toRadians(camera.getZoom()), (float) Camera.SCR_WIDTH / Camera.SCR_HEIGHT, 0.1f, 100f);
         lightingShader.setMatrix4f("projection", projection);
         lightingShader.setMatrix4f("view", view);
