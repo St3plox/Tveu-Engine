@@ -12,7 +12,7 @@ public class CameraTransform extends BaseTransform {
         super(pos);
 
         up = new Vector3f(0.0f, 1.0f, 0.0f);
-        worldUp = up;
+        worldUp = new Vector3f(up);
 
         yaw = -90.0f;
         pitch = 0.0f;
@@ -23,20 +23,20 @@ public class CameraTransform extends BaseTransform {
         updateVectors();
     }
 
-    public void moveForward(float scal){
-        pos.add(new Vector3f(front).mul(scal));
+    public void moveForward(float scalar){
+        pos.add(new Vector3f(front).mul(scalar));
     }
 
-    public void moveBackward(float scal){
-        pos.sub(new Vector3f(front).mul(scal));
+    public void moveBackward(float scalar){
+        pos.sub(new Vector3f(front).mul(scalar));
     }
 
-    public void moveLeft(float scal){
-        pos.sub(new Vector3f(right).mul(scal));
+    public void moveLeft(float scalar){
+        pos.sub(new Vector3f(right).mul(scalar));
     }
 
-    public void moveRight(float scal){
-        pos.add(new Vector3f(right).mul(scal));
+    public void moveRight(float scalar){
+        pos.add(new Vector3f(right).mul(scalar));
     }
 
     public Matrix4f getViewMatrix() {
