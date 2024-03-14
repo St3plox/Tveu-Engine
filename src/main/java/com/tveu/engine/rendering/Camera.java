@@ -8,6 +8,7 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class Camera {
 
+    //TODO: Move Camera Transofrm to the GO, remove from here
     public final CameraTransform transform;
 
     public final static int SCR_WIDTH = 800;
