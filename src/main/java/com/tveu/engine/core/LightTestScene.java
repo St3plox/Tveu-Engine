@@ -80,6 +80,14 @@ public class LightTestScene extends Scene {
 
     @Override
     public void init() {
+
+        var ct = new CameraTransform(new Vector3f(0.0f, 0.0f, 0.0f));
+        camera = new FreeCamera(ct);
+        camera.addComponent(new CameraComponent(camera, new Camera()));
+        objects.put(camera.getId(), camera);
+
+        super.init();
+
         cubeVao = glGenVertexArrays();
         vbo = glGenBuffers();
 
@@ -107,16 +115,12 @@ public class LightTestScene extends Scene {
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glVertexAttribPointer(0, 3, GL_FLOAT, false, 6 * Float.BYTES, 0);
         glEnableVertexAttribArray(0);
-
-        var ct = new CameraTransform(new Vector3f(0.0f, 0.0f, 0.0f));
-        camera = new FreeCamera(ct);
-        camera.addComponent(new CameraComponent(camera, new Camera()));
-        camera.init();
     }
 
 
     @Override
     public void update(float dt) {
+        super.update(dt);
 
         lightingShader.use();
         lightingShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
@@ -153,7 +157,5 @@ public class LightTestScene extends Scene {
 
         glBindVertexArray(cubeVao);
         glDrawArrays(GL_TRIANGLES, 0, 36);
-
-        camera.update(dt);
     }
 }
