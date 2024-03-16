@@ -177,14 +177,11 @@ public class LevelEditorScene extends Scene {
         Matrix4f view = camera.transform.getViewMatrix();
         Matrix4f projection = new Matrix4f().perspective((float) Math.toRadians(camera.getZoom()), (float) Camera.SCR_WIDTH / Camera.SCR_HEIGHT, 0.1f, 100f);
 
-        float xoffset = MouseListener.getMouseX() - lastMouseX;
-        float yoffset = lastMouseY - MouseListener.getMouseY(); // reversed since y-coordinates go from bottom to top
+        // reversed since y-coordinates go from bottom to top
 
         lastMouseX = MouseListener.getMouseX();
         lastMouseY = MouseListener.getMouseY();
         // Update camera input
-        camera.processKeyboardInput(dt);
-        camera.processMouseInput(xoffset, yoffset);
 
         shader.setMatrix4f("view", view);
         shader.setMatrix4f("projection", projection);

@@ -1,15 +1,10 @@
 package com.tveu.engine.rendering;
 
 import com.tveu.engine.core.CameraTransform;
-import com.tveu.engine.core.input.KeyListener;
-import org.joml.Vector3f;
-
-import static org.lwjgl.glfw.GLFW.*;
 
 public class Camera {
 
-    //TODO: Move Camera Transofrm to the GO, remove from here
-    public final CameraTransform transform;
+    public CameraTransform transform;
 
     public final static int SCR_WIDTH = 800;
     public final static int SCR_HEIGHT = 600;
@@ -18,13 +13,6 @@ public class Camera {
     private float sensitivity = 0.1f;
     private float zoom = 90f;
 
-    public Camera(CameraTransform transform) {
-        this.transform = transform;
-    }
-
-    public Camera() {
-        this(new CameraTransform(new Vector3f(0.0f, 0.0f, 0.0f)));
-    }
 
     void ProcessMouseScroll(float yoffset) {
         zoom -= (float) yoffset;
@@ -35,7 +23,7 @@ public class Camera {
     }
 
 
-    public void processKeyboardInput(float dt) {
+    /*public void processKeyboardInput(float dt) {
         if (KeyListener.isKeyPressed(GLFW_KEY_W))
             transform.moveForward(speed * dt);
 
@@ -51,7 +39,7 @@ public class Camera {
 
     public void processMouseInput(float xOffset, float yOffset) {
         transform.lookAt2D(xOffset * sensitivity, yOffset * sensitivity);
-    }
+    }*/
 
 
     public float getSpeed() {

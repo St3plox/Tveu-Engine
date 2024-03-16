@@ -1,8 +1,10 @@
 package com.tveu.engine.core.game_object;
 
+import com.tveu.engine.core.BaseTransform;
 import com.tveu.engine.core.CameraTransform;
 import com.tveu.engine.core.component.CameraComponent;
 import com.tveu.engine.core.input.KeyListener;
+import com.tveu.engine.core.input.MouseListener;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -12,6 +14,16 @@ public class FreeCamera extends GameObject {
     private float speed = 7.0f;
 
     private float sensitivity = 0.1f;
+
+    private float lastMouseX = MouseListener.getLastMouseX();
+    private float lastMouseY = MouseListener.getLastMouseY();
+
+    public FreeCamera() {
+    }
+
+    public FreeCamera(BaseTransform transform) {
+        super(transform);
+    }
 
     @Override
     public void init() {
@@ -27,9 +39,19 @@ public class FreeCamera extends GameObject {
         }
     }
 
+    @Override
+    public void update(float dt) {
+        super.update(dt);
 
+        float xoffset = MouseListener.getMouseX() - lastMouseX;
+        float yoffset = lastMouseY - MouseListener.getMouseY(); // reversed since y-coordinates go from bottom to top
 
-    //TODO: Make Camera get changes formn CameraTransform
+        processKeyboardInput(dt);
+        processMouseInput(xoffset, yoffset);
+
+        lastMouseX = MouseListener.getMouseX();
+        lastMouseY = MouseListener.getMouseY();
+    }
     private void processKeyboardInput(float dt) {
         if (KeyListener.isKeyPressed(GLFW_KEY_W))
             if (KeyListener.isKeyPressed(GLFW_KEY_W))

@@ -1,6 +1,7 @@
 package com.tveu.engine.core;
 
-import com.tveu.engine.core.input.MouseListener;
+import com.tveu.engine.core.component.CameraComponent;
+import com.tveu.engine.core.game_object.FreeCamera;
 import com.tveu.engine.rendering.Camera;
 import com.tveu.engine.rendering.Shader;
 import org.joml.Matrix4f;
@@ -72,12 +73,10 @@ public class LightTestScene extends Scene {
 
     private Vector3f lightPos = new Vector3f(1.2f, 1.0f, 2.0f);
 
-    private Camera camera = new Camera();
 
     private int vbo, cubeVao, lightCubeVao;
 
-    private float lastMouseX = MouseListener.getLastMouseX();
-    private float lastMouseY = MouseListener.getLastMouseY();
+    private FreeCamera camera;
 
     @Override
     public void init() {
@@ -108,6 +107,11 @@ public class LightTestScene extends Scene {
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glVertexAttribPointer(0, 3, GL_FLOAT, false, 6 * Float.BYTES, 0);
         glEnableVertexAttribArray(0);
+
+        var ct = new CameraTransform(new Vector3f(0.0f, 0.0f, 0.0f));
+        camera = new FreeCamera(ct);
+        camera.addComponent(new CameraComponent(camera, new Camera()));
+        camera.init();
     }
 
 
@@ -121,8 +125,10 @@ public class LightTestScene extends Scene {
         lightingShader.setVec3("viewPos", camera.transform.getPos());
 
 
-        Matrix4f view = camera.transform.getViewMatrix();
-        Matrix4f projection = new Matrix4f().perspective((float) Math.toRadians(camera.getZoom()), (float) Camera.SCR_WIDTH / Camera.SCR_HEIGHT, 0.1f, 100f);
+        var cameraComponent = camera.getComponent(CameraComponent.class);
+
+        Matrix4f view = cameraComponent.getView();
+        Matrix4f projection = cameraComponent.getProjection();
         lightingShader.setMatrix4f("projection", projection);
         lightingShader.setMatrix4f("view", view);
 
@@ -148,14 +154,6 @@ public class LightTestScene extends Scene {
         glBindVertexArray(cubeVao);
         glDrawArrays(GL_TRIANGLES, 0, 36);
 
-        float xoffset = MouseListener.getMouseX() - lastMouseX;
-        float yoffset = lastMouseY - MouseListener.getMouseY(); // reversed since y-coordinates go from bottom to top
-
-        lastMouseX = MouseListener.getMouseX();
-        lastMouseY = MouseListener.getMouseY();
-        // Update camera input
-        camera.processKeyboardInput(dt);
-        camera.processMouseInput(xoffset, yoffset);
-
+        camera.update(dt);
     }
 }

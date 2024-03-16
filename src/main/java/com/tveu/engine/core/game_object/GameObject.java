@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class GameObject implements Updatable {
 
-    protected final BaseTransform transform;
+    public BaseTransform transform;
 
     protected Map<Class<? extends Component>, Component> components;
 
@@ -25,7 +25,7 @@ public class GameObject implements Updatable {
         this(new Transform(new Vector3f(0.0f, 0.0f, 0.0f)));
     }
 
-    public GameObject(Transform transform) {
+    public GameObject(BaseTransform transform) {
 
         this.transform = transform;
 
@@ -34,14 +34,21 @@ public class GameObject implements Updatable {
         name = "";
     }
 
-    public void init(){
-        for (var c : components.values()){
+    public void init() {
+        for (var c : components.values()) {
             c.init();
         }
     }
 
-    public void clean(){
-        for (var c : components.values()){
+    @Override
+    public void update(float dt) {
+        for (Component component : components.values()) {
+            component.update(dt);
+        }
+    }
+
+    public void clean() {
+        for (var c : components.values()) {
             c.clean();
         }
     }
@@ -58,13 +65,6 @@ public class GameObject implements Updatable {
         components.remove(component.getClass(), component);
     }
 
-    @Override
-    public void update(float dt) {
-        for (Component component : components.values()) {
-            component.update(dt);
-        }
-    }
-
     public long getId() {
         return id;
     }
@@ -77,4 +77,3 @@ public class GameObject implements Updatable {
         this.name = name;
     }
 }
-
