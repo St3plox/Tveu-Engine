@@ -43,7 +43,7 @@ public class GameObject implements Updatable {
 
     @Override
     public void update(float dt) {
-        for (Component component : components.values()) {
+        for (var component : components.values()) {
             component.update(dt);
         }
     }
@@ -75,7 +75,6 @@ public class GameObject implements Updatable {
     }
 
     public void setName(String name) {
-
         this.name = name;
     }
 

@@ -119,7 +119,7 @@ public class Window {
         // Set the clear color
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
-        LightTestScene scene = new LightTestScene();
+        Scene scene = new LightTestScene();
         scene.init();
 
         // Run the rendering loop until the user has attempted to close
