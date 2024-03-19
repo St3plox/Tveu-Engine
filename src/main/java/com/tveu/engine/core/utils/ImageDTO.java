@@ -1,4 +1,4 @@
-package com.tveu.engine.utils;
+package com.tveu.engine.core.utils;
 
 import java.nio.ByteBuffer;
 

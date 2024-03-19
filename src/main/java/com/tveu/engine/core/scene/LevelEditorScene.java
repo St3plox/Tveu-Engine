@@ -1,4 +1,4 @@
-package com.tveu.engine.core;
+package com.tveu.engine.core.scene;
 
 import com.tveu.engine.core.input.MouseListener;
 import com.tveu.engine.rendering.Camera;

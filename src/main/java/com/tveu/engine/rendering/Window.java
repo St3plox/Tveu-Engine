@@ -1,11 +1,17 @@
 package com.tveu.engine.rendering;
 
-import com.tveu.engine.core.LevelEditorScene;
-import com.tveu.engine.core.LightTestScene;
-import com.tveu.engine.core.Scene;
-import com.tveu.engine.utils.Time;
+import com.tveu.engine.core.Transform;
+import com.tveu.engine.core.component.CameraComponent;
+import com.tveu.engine.core.component.VertexShapeComponent;
+import com.tveu.engine.core.game_object.FreeCamera;
+import com.tveu.engine.core.game_object.GameObject;
+import com.tveu.engine.core.scene.CameraScene;
+import com.tveu.engine.core.scene.LightTestScene;
+import com.tveu.engine.core.scene.Scene;
+import com.tveu.engine.core.utils.Time;
 import com.tveu.engine.core.input.KeyListener;
 import com.tveu.engine.core.input.MouseListener;
+import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -119,10 +125,11 @@ public class Window {
         // Set the clear color
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
-        Scene scene = new LightTestScene();
+        var scene = prepareScene();
         scene.init();
 
-        // Run the rendering loop until the user has attempted to close
+        //         Scene scene = new LightTestScene();
+        //        scene.init();Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
         while (!glfwWindowShouldClose(window)) {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
@@ -134,7 +141,6 @@ public class Window {
             glfwSetKeyCallback(window, KeyListener::keyCallback);
 
             glfwSetInputMode(window, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_DISABLED);
-
 
 
             if (dt >= 0) {
@@ -151,6 +157,110 @@ public class Window {
 
         }
 
+    }
+
+    //Method for initialization scene for test environment
+    private static Scene prepareScene() {
+
+        CameraScene scene = new CameraScene();
+
+        FreeCamera cameraObj = new FreeCamera();
+        CameraComponent cameraComponent = new CameraComponent(cameraObj, new Camera());
+        cameraObj.addComponent(cameraComponent);
+
+        scene.addObj(cameraObj);
+
+        float[] vertices = {
+                -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+                0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+                0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+                0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+                -0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+                -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+
+                -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+                0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+                0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+                0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+                -0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+                -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+
+                -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f,
+                -0.5f, 0.5f, -0.5f, -1.0f, 0.0f, 0.0f,
+                -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f,
+                -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f,
+                -0.5f, -0.5f, 0.5f, -1.0f, 0.0f, 0.0f,
+                -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f,
+
+                0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,
+                0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
+                0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
+                0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
+                0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f,
+                0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,
+
+                -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f,
+                0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f,
+                0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f,
+                0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f,
+                -0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f,
+                -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f,
+
+                -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+                0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+                0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
+                0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
+                -0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
+                -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f
+        };
+
+
+        GameObject lightCubeObj = new GameObject(new Transform(new Vector3f(1.2f, 1.0f, 2.0f)));
+        Shader lightCubeShader = new Shader(
+                "src/main/java/com/tveu/engine/rendering/shaders/light_cube_vertex.glsl",
+                "src/main/java/com/tveu/engine/rendering/shaders/light_cube_fragment.glsl"
+        );
+        VertexShapeComponent lightCubeComp = new VertexShapeComponent(lightCubeObj, vertices, lightCubeShader);
+
+        VertexAttribPtr cubeAttrib = new VertexAttribPtr.Builder()
+                .size(0)
+                .normalized(true)
+                .stride(6 * Float.BYTES)
+                .pointer(0)
+                .build();
+        lightCubeComp.addVertexAttrib(cubeAttrib);
+        lightCubeObj.addComponent(lightCubeComp);
+
+        scene.addObj(lightCubeObj);
+
+        GameObject lightingObj = new GameObject(new Transform(new Vector3f(-1.2f, 1.0f, -2.0f)));
+        Shader lightingShader = new Shader(
+                "src/main/java/com/tveu/engine/rendering/shaders/colors_vertex.glsl",
+                "src/main/java/com/tveu/engine/rendering/shaders/colors_fragment.glsl"
+        );
+
+        VertexShapeComponent lightingComp = new VertexShapeComponent(lightingObj, vertices, lightingShader);
+
+
+        VertexAttribPtr lighting1 = new VertexAttribPtr.Builder()
+                .size(0)
+                .normalized(true)
+                .stride(6 * Float.BYTES)
+                .pointer(0)
+                .build();
+        VertexAttribPtr lighting2 = new VertexAttribPtr.Builder()
+                .size(0)
+                .normalized(true)
+                .stride(6 * Float.BYTES)
+                .pointer(3 * Float.BYTES)
+                .build();
+        lightingComp.addVertexAttrib(lighting1);
+        lightingComp.addVertexAttrib(lighting2);
+        lightingObj.addComponent(lightingComp);
+
+        scene.addObj(lightingObj);
+
+        return scene;
     }
 
 }

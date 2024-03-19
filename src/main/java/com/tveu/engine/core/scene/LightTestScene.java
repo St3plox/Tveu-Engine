@@ -1,5 +1,6 @@
-package com.tveu.engine.core;
+package com.tveu.engine.core.scene;
 
+import com.tveu.engine.core.CameraTransform;
 import com.tveu.engine.core.component.CameraComponent;
 import com.tveu.engine.core.game_object.FreeCamera;
 import com.tveu.engine.rendering.Camera;

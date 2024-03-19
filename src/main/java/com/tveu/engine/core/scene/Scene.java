@@ -1,5 +1,6 @@
-package com.tveu.engine.core;
+package com.tveu.engine.core.scene;
 
+import com.tveu.engine.core.Updatable;
 import com.tveu.engine.core.game_object.GameObject;
 
 import java.util.Collection;

@@ -1,4 +1,4 @@
-package com.tveu.engine.utils;
+package com.tveu.engine.core.utils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -6,8 +6,6 @@ import java.io.*;
 import java.nio.ByteBuffer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static java.util.Base64.getEncoder;
 
 public class FileManager {
 

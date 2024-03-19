@@ -1,4 +1,4 @@
-package com.tveu.engine.rendering;
+package com.tveu.engine.core.component;
 
 import org.joml.Matrix4f;
 

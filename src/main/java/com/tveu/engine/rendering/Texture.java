@@ -1,14 +1,9 @@
 package com.tveu.engine.rendering;
 
-import com.tveu.engine.utils.FileManager;
-import com.tveu.engine.utils.ImageDTO;
 import org.lwjgl.BufferUtils;
 
-import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static org.lwjgl.opengl.GL11C.*;
 import static org.lwjgl.opengl.GL30C.glGenerateMipmap;

@@ -1,6 +1,5 @@
 package com.tveu.engine.core.component;
 
-import com.tveu.engine.rendering.Displayable;
 import com.tveu.engine.rendering.VertexAttribPtr;
 import com.tveu.engine.core.game_object.GameObject;
 import com.tveu.engine.rendering.Shader;

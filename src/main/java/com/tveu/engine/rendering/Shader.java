@@ -1,6 +1,6 @@
 package com.tveu.engine.rendering;
 
-import com.tveu.engine.utils.FileManager;
+import com.tveu.engine.core.utils.FileManager;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
