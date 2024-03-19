@@ -33,10 +33,10 @@ public class CameraComponent extends Component {
     }
 
     public Matrix4f getView() {
-        return new Matrix4f(view);
+        return view;
     }
 
     public Matrix4f getProjection() {
-        return new Matrix4f(projection);
+        return projection;
     }
 }

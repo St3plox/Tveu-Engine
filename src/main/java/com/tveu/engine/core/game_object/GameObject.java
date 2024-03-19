@@ -6,9 +6,7 @@ import com.tveu.engine.core.Updatable;
 import com.tveu.engine.core.component.Component;
 import org.joml.Vector3f;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 
@@ -60,6 +58,14 @@ public class GameObject implements Updatable {
 
     public void addComponent(Component component) {
         components.put(component.getClass(), component);
+    }
+
+    public boolean containsComponent(Class<? extends Component> type) {
+        return components.containsKey(type);
+    }
+
+    public Collection<Component> getComponents(){
+        return components.values();
     }
 
     public void removeComponent(Component component) {

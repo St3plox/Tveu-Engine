@@ -1,5 +1,6 @@
 package com.tveu.engine.core.component;
 
+import com.tveu.engine.rendering.Displayable;
 import com.tveu.engine.rendering.VertexAttribPtr;
 import com.tveu.engine.core.game_object.GameObject;
 import com.tveu.engine.rendering.Shader;
@@ -17,7 +18,7 @@ import static org.lwjgl.opengl.GL20C.glEnableVertexAttribArray;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
-public class VertexShapeComponent extends Component {
+public class VertexShapeComponent extends Component implements Displayable {
 
     public Shader shader;
     private final float[] vertices;
@@ -26,7 +27,9 @@ public class VertexShapeComponent extends Component {
 
     private int vaoID;
 
-    CameraComponent cameraComponent;
+    private Matrix4f view, projection;
+
+
     public VertexShapeComponent(GameObject gameObject, float[] vertices, Shader shader) {
         super(gameObject);
 
@@ -78,10 +81,26 @@ public class VertexShapeComponent extends Component {
         Matrix4f model = new Matrix4f();
         model.translate(gameObject.transform.getPos());
         shader.setMatrix4f("model", model);
+
+        if (projection == null || view == null) {
+            throw new RuntimeException("projection or view objects cannot be null in component");
+        }
+        shader.setMatrix4f("projection", projection);
+        shader.setMatrix4f("view", view);
+
+    }
+
+    @Override
+    public void setView(Matrix4f view) {
+        this.view = view;
+    }
+
+    @Override
+    public void setProjection(Matrix4f projection) {
+        this.projection = projection;
     }
 
     public void addVertexAttrib(VertexAttribPtr vertexAttribPtr) {
         vertexAttribs.add(vertexAttribPtr);
     }
-
 }
