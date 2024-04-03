@@ -18,11 +18,7 @@ public class FreeCamera extends GameObject {
     private float lastMouseX = MouseListener.getLastMouseX();
     private float lastMouseY = MouseListener.getLastMouseY();
 
-    public FreeCamera() {
-        super();
-    }
-
-    public FreeCamera(BaseTransform transform) {
+    public FreeCamera(CameraTransform transform) {
         super(transform);
     }
 

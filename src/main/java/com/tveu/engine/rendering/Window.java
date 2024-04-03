@@ -1,16 +1,18 @@
 package com.tveu.engine.rendering;
 
+import com.tveu.engine.core.CameraTransform;
 import com.tveu.engine.core.Transform;
 import com.tveu.engine.core.component.CameraComponent;
 import com.tveu.engine.core.component.VertexShapeComponent;
 import com.tveu.engine.core.game_object.FreeCamera;
 import com.tveu.engine.core.game_object.GameObject;
+import com.tveu.engine.core.input.KeyListener;
+import com.tveu.engine.core.input.MouseListener;
 import com.tveu.engine.core.scene.CameraScene;
 import com.tveu.engine.core.scene.LightTestScene;
 import com.tveu.engine.core.scene.Scene;
 import com.tveu.engine.core.utils.Time;
-import com.tveu.engine.core.input.KeyListener;
-import com.tveu.engine.core.input.MouseListener;
+import com.tveu.engine.rendering.objects.RenderObjects;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -164,7 +166,7 @@ public class Window {
 
         CameraScene scene = new CameraScene();
 
-        FreeCamera cameraObj = new FreeCamera();
+        FreeCamera cameraObj = new FreeCamera(new CameraTransform(new Vector3f()));
         CameraComponent cameraComponent = new CameraComponent(cameraObj, new Camera());
         cameraObj.addComponent(cameraComponent);
 
@@ -214,13 +216,14 @@ public class Window {
                 -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f
         };
 
-
         GameObject lightCubeObj = new GameObject(new Transform(new Vector3f(1.2f, 1.0f, 2.0f)));
         Shader lightCubeShader = new Shader(
                 "src/main/java/com/tveu/engine/rendering/shaders/light_cube_vertex.glsl",
                 "src/main/java/com/tveu/engine/rendering/shaders/light_cube_fragment.glsl"
         );
-        VertexShapeComponent lightCubeComp = new VertexShapeComponent(lightCubeObj, vertices, lightCubeShader);
+        VertexShapeComponent lightCubeComp = new VertexShapeComponent(lightCubeObj, vertices, null, lightCubeShader);
+        lightCubeComp.addRenderObject(RenderObjects.VAO);
+        lightCubeComp.addRenderObject(RenderObjects.VBO);
 
         VertexAttribPtr cubeAttrib = new VertexAttribPtr.Builder()
                 .size(0)
@@ -239,8 +242,10 @@ public class Window {
                 "src/main/java/com/tveu/engine/rendering/shaders/colors_fragment.glsl"
         );
 
-        VertexShapeComponent lightingComp = new VertexShapeComponent(lightingObj, vertices, lightingShader);
+        VertexShapeComponent lightingComp = new VertexShapeComponent(lightingObj, vertices, null, lightingShader);
 
+        lightingComp.addRenderObject(RenderObjects.VAO);
+        lightingComp.addRenderObject(RenderObjects.VBO);
 
         VertexAttribPtr lighting1 = new VertexAttribPtr.Builder()
                 .size(0)
@@ -248,6 +253,7 @@ public class Window {
                 .stride(6 * Float.BYTES)
                 .pointer(0)
                 .build();
+
         VertexAttribPtr lighting2 = new VertexAttribPtr.Builder()
                 .size(0)
                 .normalized(true)

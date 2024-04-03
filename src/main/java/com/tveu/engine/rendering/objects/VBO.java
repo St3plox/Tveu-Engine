@@ -1,5 +1,7 @@
 package com.tveu.engine.rendering.objects;
 
+import org.lwjgl.BufferUtils;
+
 import java.nio.FloatBuffer;
 
 import static org.lwjgl.opengl.GL15.*;
@@ -7,13 +9,14 @@ import static org.lwjgl.opengl.GL15C.glGenBuffers;
 
 public class VBO extends RenderObject {
 
-    public VBO(FloatBuffer floatBuffer) {
+    public VBO(float[] vertices) {
         super();
-        bindBufferData(floatBuffer);
+        bindBufferData(vertices);
     }
 
-    protected void bindBufferData(FloatBuffer vertexBuffer) {
-        glBufferData(GL_ARRAY_BUFFER, vertexBuffer, GL_STATIC_DRAW);
+    protected void bindBufferData(float[] vertices) {
+        FloatBuffer fb = BufferUtils.createFloatBuffer(vertices.length);
+        glBufferData(GL_ARRAY_BUFFER, fb, GL_STATIC_DRAW);
     }
 
     @Override
