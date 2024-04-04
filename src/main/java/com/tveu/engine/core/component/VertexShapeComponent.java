@@ -7,7 +7,9 @@ import com.tveu.engine.rendering.objects.*;
 import org.joml.Matrix4f;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
@@ -21,7 +23,7 @@ public class VertexShapeComponent extends Component implements Displayable {
     private final int[] indices;
 
     private final List<VertexAttribPtr> vertexAttribs;
-    private final List<RenderObject> renderObjects = new ArrayList<>();
+    private final Set<RenderObject> renderObjects = new HashSet<>();
 
     private int vaoID;
 

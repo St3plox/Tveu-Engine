@@ -1,6 +1,7 @@
 package com.tveu.engine.rendering;
 
 import com.tveu.engine.core.CameraTransform;
+import org.joml.Vector3f;
 
 public class Camera {
 
@@ -13,6 +14,13 @@ public class Camera {
     private float sensitivity = 0.1f;
     private float zoom = 90f;
 
+    public Camera(CameraTransform transform) {
+        this.transform = transform;
+    }
+
+    public Camera() {
+        transform = new CameraTransform(new Vector3f());
+    }
 
     void ProcessMouseScroll(float yoffset) {
         zoom -= (float) yoffset;

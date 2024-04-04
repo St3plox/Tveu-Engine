@@ -7,6 +7,8 @@ import com.tveu.engine.core.scene.Scene;
 
 public class CameraScene extends Scene {
 
+    protected CameraComponent cameraComponent;
+
     public CameraScene() {
         super();
     }
@@ -15,8 +17,8 @@ public class CameraScene extends Scene {
     public void addObj(GameObject go) {
         super.addObj(go);
 
-        var cameraComponent = go.getComponent(CameraComponent.class);
         if (cameraComponent == null) {
+             cameraComponent = go.getComponent(CameraComponent.class);
             return;
         }
 

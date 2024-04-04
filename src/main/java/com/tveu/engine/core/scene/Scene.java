@@ -17,9 +17,9 @@ public class Scene implements Updatable {
     }
 
     public void init() {
-        for (var obj : objects.values()) {
+/*        for (var obj : objects.values()) {
             obj.init();
-        }
+        }*/
     }
 
     public void update(float dt) {

@@ -169,6 +169,7 @@ public class Window {
         FreeCamera cameraObj = new FreeCamera(new CameraTransform(new Vector3f()));
         CameraComponent cameraComponent = new CameraComponent(cameraObj, new Camera());
         cameraObj.addComponent(cameraComponent);
+        cameraObj.init();
 
         scene.addObj(cameraObj);
 
@@ -233,6 +234,7 @@ public class Window {
                 .build();
         lightCubeComp.addVertexAttrib(cubeAttrib);
         lightCubeObj.addComponent(lightCubeComp);
+        lightCubeObj.init();
 
         scene.addObj(lightCubeObj);
 
@@ -263,6 +265,7 @@ public class Window {
         lightingComp.addVertexAttrib(lighting1);
         lightingComp.addVertexAttrib(lighting2);
         lightingObj.addComponent(lightingComp);
+        lightingObj.init();
 
         scene.addObj(lightingObj);
 
