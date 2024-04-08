@@ -78,7 +78,6 @@ public class VertexShapeComponent extends Component implements Displayable {
         shader.setMatrix4f("model", model);
 
 
-
         glBindVertexArray(vaoID);
         glDrawArrays(GL_TRIANGLES, 0, vertices.length);
     }
