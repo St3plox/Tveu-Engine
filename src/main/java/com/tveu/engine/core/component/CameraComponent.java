@@ -7,13 +7,18 @@ import org.joml.Matrix4f;
 
 public class CameraComponent extends Component {
     protected Camera camera;
-    private Matrix4f view;
-    private Matrix4f projection;
+
+    private final Matrix4f view;
+    private final Matrix4f projection;
+
 
     public CameraComponent(GameObject gameObject, Camera camera) {
         super(gameObject);
+
         this.camera = camera;
-        init();
+        camera.transform = (CameraTransform) gameObject.transform;
+        view = ((CameraTransform) gameObject.transform).getViewMatrix();
+        projection = new Matrix4f().perspective((float) Math.toRadians(camera.getZoom()), (float) Camera.SCR_WIDTH / Camera.SCR_HEIGHT, 0.1f, 100f);
     }
 
     @Override
@@ -21,11 +26,13 @@ public class CameraComponent extends Component {
         super.init();
 
 
+/*
         //TODO: fix
         camera.transform = (CameraTransform) gameObject.transform;
 
         view = ((CameraTransform) gameObject.transform).getViewMatrix();
         projection = new Matrix4f().perspective((float) Math.toRadians(camera.getZoom()), (float) Camera.SCR_WIDTH / Camera.SCR_HEIGHT, 0.1f, 100f);
+*/
     }
 
     @Override

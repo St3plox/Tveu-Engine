@@ -17,13 +17,15 @@ import static org.lwjgl.opengl.GL20C.glEnableVertexAttribArray;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 
 public class VertexShapeComponent extends Component implements Displayable {
+
     public Shader shader;
+
     private final float[] vertices;
 
     private final int[] indices;
 
     private final List<VertexAttribPtr> vertexAttribs;
-    private final Set<RenderObject> renderObjects = new HashSet<>();
+    private final Set<RenderObject> renderObjects;
 
     private int vaoID;
 
@@ -33,9 +35,11 @@ public class VertexShapeComponent extends Component implements Displayable {
         super(gameObject);
 
         this.vertices = vertices;
-        vertexAttribs = new ArrayList<>(2);
         this.shader = shader;
         this.indices = indices;
+
+        vertexAttribs = new ArrayList<>(2);
+        renderObjects = new HashSet<>(3);
     }
 
     @Override
@@ -52,28 +56,29 @@ public class VertexShapeComponent extends Component implements Displayable {
                     attrib.getPointer()
             );
             glEnableVertexAttribArray(i);
+            glBindVertexArray(i);
         }
     }
 
-    //TODO: figure out how to work with view and perspective matrices
     @Override
     public void update(float dt) {
-
         shader.use();
-
-        glBindVertexArray(vaoID);
-        glDrawArrays(GL_TRIANGLES, 0, vertices.length);
 
         Matrix4f model = new Matrix4f();
         model.translate(gameObject.transform.getPos());
-        shader.setMatrix4f("model", model);
 
         if (projection == null || view == null) {
             throw new RuntimeException("projection or view objects cannot be null in component");
         }
+
         shader.setMatrix4f("projection", projection);
         shader.setMatrix4f("view", view);
 
+        shader.setMatrix4f("model", model);
+
+
+        glBindVertexArray(vaoID);
+        glDrawArrays(GL_TRIANGLES, 0, vertices.length);
     }
 
     @Override
