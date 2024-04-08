@@ -60,7 +60,6 @@ public class VertexShapeComponent extends Component implements Displayable {
         }
     }
 
-    //TODO: figure out how with shaders(set vec3)
     @Override
     public void update(float dt) {
         shader.use();
