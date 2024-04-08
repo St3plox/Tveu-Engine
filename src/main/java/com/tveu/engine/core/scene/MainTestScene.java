@@ -15,8 +15,8 @@ import org.joml.Vector3f;
 
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.glBindTexture;
-import static org.lwjgl.opengl.GL11C.GL_TEXTURE;
-import static org.lwjgl.opengl.GL13.*;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
+import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 //TODO: transfer some lighting shader staff
 public class MainTestScene extends CameraScene {

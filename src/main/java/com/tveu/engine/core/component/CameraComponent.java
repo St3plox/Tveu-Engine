@@ -7,8 +7,9 @@ import org.joml.Matrix4f;
 
 public class CameraComponent extends Component {
     protected Camera camera;
-    private Matrix4f view;
-    private Matrix4f projection;
+
+    private final Matrix4f view;
+    private final Matrix4f projection;
 
 
     public CameraComponent(GameObject gameObject, Camera camera) {
