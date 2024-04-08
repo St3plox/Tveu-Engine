@@ -16,6 +16,7 @@ public class VBO extends RenderObject {
 
     protected void bindBufferData(float[] vertices) {
         FloatBuffer fb = BufferUtils.createFloatBuffer(vertices.length);
+        fb.put(vertices).flip();
         glBufferData(GL_ARRAY_BUFFER, fb, GL_STATIC_DRAW);
     }
 

@@ -1,19 +1,9 @@
 package com.tveu.engine.rendering;
 
-import com.tveu.engine.core.CameraTransform;
-import com.tveu.engine.core.Transform;
-import com.tveu.engine.core.component.CameraComponent;
-import com.tveu.engine.core.component.VertexShapeComponent;
-import com.tveu.engine.core.game_object.FreeCamera;
-import com.tveu.engine.core.game_object.GameObject;
 import com.tveu.engine.core.input.KeyListener;
 import com.tveu.engine.core.input.MouseListener;
-import com.tveu.engine.core.scene.CameraScene;
-import com.tveu.engine.core.scene.LightTestScene;
-import com.tveu.engine.core.scene.Scene;
+import com.tveu.engine.core.scene.MainTestScene;
 import com.tveu.engine.core.utils.Time;
-import com.tveu.engine.rendering.objects.RenderObjects;
-import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -127,11 +117,9 @@ public class Window {
         // Set the clear color
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
-        var scene = new LightTestScene();
+        var scene = new MainTestScene();
         scene.init();
 
-        //         Scene scene = new LightTestScene();
-        //        scene.init();Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
         while (!glfwWindowShouldClose(window)) {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer

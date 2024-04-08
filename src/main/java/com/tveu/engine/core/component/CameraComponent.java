@@ -10,13 +10,14 @@ public class CameraComponent extends Component {
     private Matrix4f view;
     private Matrix4f projection;
 
-    public CameraComponent(Camera camera) {
-        super();
-        this.camera = camera;
-    }
 
     public CameraComponent(GameObject gameObject, Camera camera) {
-        this(camera);
+        super(gameObject);
+
+        this.camera = camera;
+        camera.transform = (CameraTransform) gameObject.transform;
+        view = ((CameraTransform) gameObject.transform).getViewMatrix();
+        projection = new Matrix4f().perspective((float) Math.toRadians(camera.getZoom()), (float) Camera.SCR_WIDTH / Camera.SCR_HEIGHT, 0.1f, 100f);
     }
 
     @Override
@@ -24,11 +25,13 @@ public class CameraComponent extends Component {
         super.init();
 
 
+/*
         //TODO: fix
         camera.transform = (CameraTransform) gameObject.transform;
 
         view = ((CameraTransform) gameObject.transform).getViewMatrix();
         projection = new Matrix4f().perspective((float) Math.toRadians(camera.getZoom()), (float) Camera.SCR_WIDTH / Camera.SCR_HEIGHT, 0.1f, 100f);
+*/
     }
 
     @Override
