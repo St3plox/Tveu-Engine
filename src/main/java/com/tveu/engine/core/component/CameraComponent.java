@@ -10,10 +10,13 @@ public class CameraComponent extends Component {
     private Matrix4f view;
     private Matrix4f projection;
 
-    public CameraComponent(GameObject gameObject, Camera camera) {
-        super(gameObject);
+    public CameraComponent(Camera camera) {
+        super();
         this.camera = camera;
-        init();
+    }
+
+    public CameraComponent(GameObject gameObject, Camera camera) {
+        this(camera);
     }
 
     @Override

@@ -9,9 +9,10 @@ public abstract class Component implements Updatable {
 
     public Component(GameObject gameObject) {
         this.gameObject = gameObject;
-        init();
     }
 
+    public Component() {
+    }
 
     public void init(){
     }

@@ -58,6 +58,7 @@ public class GameObject implements Updatable {
 
     public void addComponent(Component component) {
         components.put(component.getClass(), component);
+        component.setGameObject(this);
     }
 
     public boolean containsComponent(Class<? extends Component> type) {
