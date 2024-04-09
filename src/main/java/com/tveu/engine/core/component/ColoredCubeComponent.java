@@ -4,6 +4,7 @@ import com.tveu.engine.core.game_object.GameObject;
 import com.tveu.engine.rendering.Shader;
 import com.tveu.engine.rendering.VertexAttribPtr;
 import com.tveu.engine.rendering.objects.RenderObjects;
+import org.joml.Vector3f;
 
 import static org.lwjgl.opengl.GL20.glGetUniformLocation;
 import static org.lwjgl.opengl.GL20.glUniform3f;
@@ -22,25 +23,13 @@ public class ColoredCubeComponent extends CubeComponent {
 
     @Override
     public void init() {
-        VertexAttribPtr vertexAttrib = new VertexAttribPtr.Builder()
-                .size(3)
-                .normalized(false)
-                .stride(3 * Float.BYTES)
-                .pointer(0)
-                .build();
-
-        shapeComponent.addVertexAttrib(vertexAttrib);
-
-        shapeComponent.addRenderObject(RenderObjects.VAO);
-        shapeComponent.addRenderObject(RenderObjects.VBO);
-
-        shapeComponent.init();
+        super.init();
     }
 
     @Override
     public void update(float dt) {
-        glUniform3f(glGetUniformLocation(shader.getID(), "objectColor"), r, g, b);
         super.update(dt);
+        shapeComponent.shader.setVec3("objectColor",new Vector3f(r, g, b));
     }
 
     @Override

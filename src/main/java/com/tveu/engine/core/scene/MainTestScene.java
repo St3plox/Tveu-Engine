@@ -44,7 +44,7 @@ public class MainTestScene extends CameraScene {
 
         var coloredCubePosition = new Vector3f(-0.15f, 3.5f, -1.0f);
         var coloredCube = new GameObject(new Transform(coloredCubePosition));
-        var coloredCubeComponent = new ColoredCubeComponent(coloredCube, 1.0f, 0.0f, 1.0f);
+        var coloredCubeComponent = new ColoredCubeComponent(coloredCube, 0.0f, 0.0f, 1.0f);
 
         coloredCube.addComponent(coloredCubeComponent);
         this.addObj(coloredCube);
