@@ -8,13 +8,7 @@ import com.tveu.engine.core.component.CubeComponent;
 import com.tveu.engine.core.game_object.FreeCamera;
 import com.tveu.engine.core.game_object.GameObject;
 import com.tveu.engine.rendering.Camera;
-import com.tveu.engine.rendering.Texture;
 import org.joml.Vector3f;
-
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.glBindTexture;
-import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
-import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 //TODO: transfer some lighting shader staff
 public class MainTestScene extends CameraScene {
