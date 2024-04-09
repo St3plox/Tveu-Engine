@@ -2,12 +2,7 @@ package com.tveu.engine.core.component;
 
 import com.tveu.engine.core.game_object.GameObject;
 import com.tveu.engine.rendering.Shader;
-import com.tveu.engine.rendering.VertexAttribPtr;
-import com.tveu.engine.rendering.objects.RenderObjects;
 import org.joml.Vector3f;
-
-import static org.lwjgl.opengl.GL20.glGetUniformLocation;
-import static org.lwjgl.opengl.GL20.glUniform3f;
 
 public class ColoredCubeComponent extends CubeComponent {
 
@@ -29,7 +24,7 @@ public class ColoredCubeComponent extends CubeComponent {
     @Override
     public void update(float dt) {
         super.update(dt);
-        shapeComponent.shader.setVec3("objectColor",new Vector3f(r, g, b));
+        shapeComponent.shader.setVec3("objectColor", new Vector3f(r, g, b));
     }
 
     @Override
