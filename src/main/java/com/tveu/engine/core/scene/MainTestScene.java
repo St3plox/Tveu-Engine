@@ -19,9 +19,6 @@ import static org.lwjgl.opengl.GL13.glActiveTexture;
 //TODO: transfer some lighting shader staff
 public class MainTestScene extends CameraScene {
 
-
-    private Texture texture2 = new Texture("src/main/java/resources/textures/wall.jpg");
-
     @Override
     public void init() {
 
@@ -44,7 +41,7 @@ public class MainTestScene extends CameraScene {
 
         var coloredCubePosition = new Vector3f(-0.15f, 3.5f, -1.0f);
         var coloredCube = new GameObject(new Transform(coloredCubePosition));
-        var coloredCubeComponent = new ColoredCubeComponent(coloredCube, 1.0f, 0.0f, 1.0f);
+        var coloredCubeComponent = new ColoredCubeComponent(coloredCube, 0.0f, 0.0f, 1.0f);
 
         coloredCube.addComponent(coloredCubeComponent);
         this.addObj(coloredCube);
@@ -54,9 +51,6 @@ public class MainTestScene extends CameraScene {
 
     @Override
     public void update(float dt) {
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texture2.getID());
-
         super.update(dt);
     }
 }

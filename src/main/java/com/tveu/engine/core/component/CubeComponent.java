@@ -13,12 +13,10 @@ public class CubeComponent extends Component implements Displayable {
 
     protected VertexShapeComponent shapeComponent;
 
-    protected Shader shader;
-
     public CubeComponent(GameObject gameObject) {
         super(gameObject);
 
-        this.shader = genShader();
+        Shader shader = genShader();
         float[] vertices = genVertices();
 
         shapeComponent = new VertexShapeComponent(this.gameObject, vertices, null, shader);
