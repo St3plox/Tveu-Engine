@@ -15,7 +15,7 @@ public abstract class BaseTransform {
     }
 
     public Vector3f getPos() {
-        return new Vector3f(pos);
+        return pos;
     }
 
     public void setPos(Vector3f pos) {

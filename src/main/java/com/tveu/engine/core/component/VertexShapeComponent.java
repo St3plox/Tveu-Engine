@@ -1,5 +1,6 @@
 package com.tveu.engine.core.component;
 
+import com.tveu.engine.core.Transform;
 import com.tveu.engine.core.game_object.GameObject;
 import com.tveu.engine.rendering.Shader;
 import com.tveu.engine.rendering.VertexAttribPtr;
@@ -66,6 +67,8 @@ public class VertexShapeComponent extends Component implements Displayable {
 
         Matrix4f model = new Matrix4f();
         model.translate(gameObject.transform.getPos());
+        model.scale(((Transform)gameObject.transform).getScale());
+        model.rotate(((Transform)gameObject.transform).getRotation());
 
         if (projection == null || view == null) {
             throw new RuntimeException("projection or view objects cannot be null in component");
@@ -78,7 +81,7 @@ public class VertexShapeComponent extends Component implements Displayable {
 
 
         glBindVertexArray(vaoID);
-        glDrawArrays(GL_TRIANGLES, 0, vertices.length);
+        glDrawArrays(GL_TRIANGLES, 0,  36);
     }
 
     @Override

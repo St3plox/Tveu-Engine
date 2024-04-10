@@ -17,11 +17,6 @@ public class ColoredCubeComponent extends CubeComponent {
     }
 
     @Override
-    public void init() {
-        super.init();
-    }
-
-    @Override
     public void update(float dt) {
         super.update(dt);
         shapeComponent.shader.setVec3("objectColor", new Vector3f(r, g, b));
@@ -29,8 +24,8 @@ public class ColoredCubeComponent extends CubeComponent {
 
     @Override
     protected Shader genShader() {
-        return new Shader("src/main/java/com/tveu/engine/rendering/shaders/base/base_colored_cube_vertex.glsl",
-                "src/main/java/com/tveu/engine/rendering/shaders/base/base_colored_cube_fragment.glsl");
+        return new Shader("shaders/base/base_colored_cube_vertex.glsl",
+                "assets/shaders/base/base_colored_cube_fragment.glsl");
     }
 
 }

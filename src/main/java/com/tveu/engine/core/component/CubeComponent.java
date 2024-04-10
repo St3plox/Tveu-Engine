@@ -74,8 +74,8 @@ public class CubeComponent extends Component implements Displayable {
     }
 
     protected Shader genShader() {
-        return new Shader("src/main/java/com/tveu/engine/rendering/shaders/base/base_cube_vertex.glsl",
-                "src/main/java/com/tveu/engine/rendering/shaders/base/base_cube_fragment.glsl");
+        return new Shader("assets/shaders/base/base_cube_vertex.glsl",
+                "assets/shaders/base/base_cube_fragment.glsl");
     }
 
     @Override

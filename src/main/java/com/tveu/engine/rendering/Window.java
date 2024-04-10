@@ -2,6 +2,7 @@ package com.tveu.engine.rendering;
 
 import com.tveu.engine.core.input.KeyListener;
 import com.tveu.engine.core.input.MouseListener;
+import com.tveu.engine.core.scene.LightTestScene;
 import com.tveu.engine.core.scene.MainTestScene;
 import com.tveu.engine.core.utils.Time;
 import org.lwjgl.glfw.GLFW;

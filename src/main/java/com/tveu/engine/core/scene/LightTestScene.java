@@ -63,14 +63,10 @@ public class LightTestScene extends Scene {
             -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f
     };
 
-    private Shader lightCubeShader = new Shader(
-            "src/main/java/com/tveu/engine/rendering/shaders/light_cube_vertex.glsl",
-            "src/main/java/com/tveu/engine/rendering/shaders/light_cube_fragment.glsl"
-    );
-    private Shader lightingShader = new Shader(
-            "src/main/java/com/tveu/engine/rendering/shaders/colors_vertex.glsl",
-            "src/main/java/com/tveu/engine/rendering/shaders/colors_fragment.glsl"
-    );
+    private Shader lightCubeShader = new Shader("assets/shaders/light_cube_vertex.glsl",
+            "assets/shaders/light_cube_fragment.glsl");
+    private Shader lightingShader = new Shader("assets/shaders/colors_vertex.glsl",
+            "assets/shaders/colors_fragment.glsl");
 
     private Vector3f lightPos = new Vector3f(1.2f, 1.0f, 2.0f);
 
@@ -127,7 +123,6 @@ public class LightTestScene extends Scene {
         lightingShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
         lightingShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
         lightingShader.setVec3("lightPos", lightPos);
-        lightingShader.setVec3("viewPos", camera.transform.getPos());
 
 
         var cameraComponent = camera.getComponent(CameraComponent.class);
@@ -153,10 +148,6 @@ public class LightTestScene extends Scene {
 
         // Draw light cube
         glBindVertexArray(lightCubeVao);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-
-
-        glBindVertexArray(cubeVao);
         glDrawArrays(GL_TRIANGLES, 0, 36);
     }
 }
