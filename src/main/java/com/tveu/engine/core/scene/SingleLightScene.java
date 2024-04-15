@@ -8,8 +8,10 @@ import org.joml.Vector3f;
 public class SingleLightScene extends CameraScene {
 
     protected Vector3f lightPosition = null;
-
     protected Vector3f lightColor = null;
+    protected Vector3f lightAmbient = null;
+    protected Vector3f lightSpecular = null;
+    protected Vector3f lightDiffuse = null;
 
     public SingleLightScene() {
         super();
@@ -28,6 +30,7 @@ public class SingleLightScene extends CameraScene {
 
             lightPosition = go.transform.getPos();
             lightColor = comp.getColor();
+
         }
 
         for (var gameObject : getObjects()) {
@@ -37,6 +40,10 @@ public class SingleLightScene extends CameraScene {
                 if (comp instanceof SingleLightReactive){
                     ((SingleLightReactive) comp).setLightColor(lightColor);
                     ((SingleLightReactive) comp).setLightPos(lightPosition);
+                    ((SingleLightReactive) comp).setViewPos(cameraComponent.getGameObject().transform.getPos());
+                    ((SingleLightReactive) comp).setLightAmbient(lightAmbient);
+                    ((SingleLightReactive) comp).setLightSpecular(lightSpecular);
+                    ((SingleLightReactive) comp).setLightDiffuse(lightDiffuse);
                 }
             }
         }
