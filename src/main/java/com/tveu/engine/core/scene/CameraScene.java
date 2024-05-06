@@ -18,7 +18,6 @@ public class CameraScene extends Scene {
 
         if (cameraComponent == null) {
             cameraComponent = go.getComponent(CameraComponent.class);
-            return;
         }
 
         for (var comp : go.getComponents()) {

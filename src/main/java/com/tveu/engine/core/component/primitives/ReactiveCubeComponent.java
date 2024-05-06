@@ -11,7 +11,11 @@ import org.joml.Vector3f;
 
 public class ReactiveCubeComponent extends CubeComponent implements SingleLightReactive {
 
-    protected Vector3f lightPosition, lightColor, viewPos, ambientLight, diffuseLight, specularLight;
+    protected Vector3f lightPosition;
+    protected Vector3f viewPos;
+    protected Vector3f ambientLight;
+    protected Vector3f diffuseLight;
+    protected Vector3f specularLight;
     protected Material material;
 
     private Vector3f color;
@@ -52,10 +56,10 @@ public class ReactiveCubeComponent extends CubeComponent implements SingleLightR
     public void update(float dt) {
         super.update(dt);
 
-        shapeComponent.shader.setVec3("viewPos", color.x, color.y, color.z);
+        shapeComponent.shader.setVec3("viewPos", viewPos.x, viewPos.y, viewPos.z);
 
         //light properties
-        shapeComponent.shader.setVec3("light.position", lightPosition.x, lightPosition.y, lightPosition.z);
+        shapeComponent.shader.setVec3("light.position", lightPosition);
         shapeComponent.shader.setVec3("light.ambient", ambientLight);
         shapeComponent.shader.setVec3("light.diffuse", diffuseLight);
         shapeComponent.shader.setVec3("light.specular", specularLight);
@@ -77,53 +81,48 @@ public class ReactiveCubeComponent extends CubeComponent implements SingleLightR
     @Override
     protected float[] genVertices() {
         return new float[]{
-                -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
-                0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
-                0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
-                0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
-                -0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
-                -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+                -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+                0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+                0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+                0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+                -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+                -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
 
-                -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
-                0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
-                0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
-                0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
-                -0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
-                -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+                -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+                0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+                0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+                0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+                -0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+                -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
 
-                -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f,
-                -0.5f, 0.5f, -0.5f, -1.0f, 0.0f, 0.0f,
-                -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f,
-                -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f,
-                -0.5f, -0.5f, 0.5f, -1.0f, 0.0f, 0.0f,
-                -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f,
+                -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+                -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+                -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+                -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+                -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+                -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
 
-                0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,
-                0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
-                0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
-                0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
-                0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f,
-                0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,
+                0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+                0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+                0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+                0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+                0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+                0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
 
-                -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f,
-                0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f,
-                0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f,
-                0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f,
-                -0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f,
-                -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f,
+                -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+                0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+                0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+                0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+                -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+                -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
 
-                -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
-                0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
-                0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
-                0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
-                -0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
-                -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f
+                -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+                0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+                0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+                0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+                -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+                -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
         };
-    }
-
-    @Override
-    public void setLightColor(Vector3f color) {
-        lightColor = color;
     }
 
     @Override
