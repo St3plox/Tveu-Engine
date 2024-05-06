@@ -47,10 +47,10 @@ public class MainTestScene extends SingleLightScene {
         emeraldComp.setMaterial(Material.EMERALD);
         emerald.addComponent(emeraldComp);
 
-        GameObject suction = new GameObject(new Transform(new Vector3f(1.55f, 0.13f, -1.5f)));
+/*        GameObject suction = new GameObject(new Transform(new Vector3f(1.55f, 0.13f, -1.5f)));
         var suctionComp = new ReactiveCubeComponent(suction);
         emeraldComp.setMaterial(Material.COPPER);
-        emerald.addComponent(suctionComp);
+        emerald.addComponent(suctionComp);*/
 
         this.addObj(cube1);
         this.addObj(cube);
