@@ -18,6 +18,8 @@ public class LightCubeComponent extends CubeComponent {
     }
 
 
+
+
     @Override
     protected Shader genShader() {
         return new Shader("assets/shaders/light_cube_vertex.glsl",

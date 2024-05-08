@@ -18,12 +18,9 @@ public class ReactiveCubeComponent extends CubeComponent implements SingleLightR
     protected Vector3f specularLight;
     protected Material material;
 
-    private Vector3f color;
-
     public ReactiveCubeComponent(GameObject gameObject) {
         super(gameObject);
 
-        color = new Vector3f(1.0f, 0.5f, 0.31f);
         material = new Material.Builder().build();
     }
 
@@ -54,7 +51,8 @@ public class ReactiveCubeComponent extends CubeComponent implements SingleLightR
 
     @Override
     public void update(float dt) {
-        super.update(dt);
+
+        shapeComponent.updateShader();
 
         shapeComponent.shader.setVec3("viewPos", viewPos.x, viewPos.y, viewPos.z);
 
@@ -70,6 +68,7 @@ public class ReactiveCubeComponent extends CubeComponent implements SingleLightR
         shapeComponent.shader.setVec3("material.specular", material.getSpecular());
         shapeComponent.shader.setFloat("material.shininess", material.getShininess());
 
+        shapeComponent.drawShape();
     }
 
     @Override
@@ -125,6 +124,8 @@ public class ReactiveCubeComponent extends CubeComponent implements SingleLightR
         };
     }
 
+
+
     @Override
     public void setLightPos(Vector3f pos) {
         lightPosition = pos;
@@ -148,14 +149,6 @@ public class ReactiveCubeComponent extends CubeComponent implements SingleLightR
     @Override
     public void setLightSpecular(Vector3f specular) {
         this.specularLight = specular;
-    }
-
-    public Vector3f getColor() {
-        return color;
-    }
-
-    public void setColor(Vector3f color) {
-        this.color = color;
     }
 
     public Material getMaterial() {

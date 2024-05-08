@@ -5,7 +5,7 @@ import org.lwjgl.BufferUtils;
 import java.nio.FloatBuffer;
 
 import static org.lwjgl.opengl.GL15.*;
-import static org.lwjgl.opengl.GL15C.glGenBuffers;
+
 
 public class VBO extends RenderObject {
 
