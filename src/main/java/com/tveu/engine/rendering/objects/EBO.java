@@ -6,6 +6,7 @@ import java.nio.IntBuffer;
 
 import static org.lwjgl.opengl.GL15.*;
 
+
 public class EBO extends RenderObject {
 
 

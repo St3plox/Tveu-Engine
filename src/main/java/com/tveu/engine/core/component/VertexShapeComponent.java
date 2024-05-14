@@ -14,7 +14,7 @@ import java.util.Set;
 
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
-import static org.lwjgl.opengl.GL20C.glEnableVertexAttribArray;
+import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 
 public class VertexShapeComponent extends Component implements Displayable {
@@ -63,25 +63,8 @@ public class VertexShapeComponent extends Component implements Displayable {
 
     @Override
     public void update(float dt) {
-        shader.use();
-
-        Matrix4f model = new Matrix4f();
-        model.translate(gameObject.transform.getPos());
-        model.scale(((Transform)gameObject.transform).getScale());
-        model.rotate(((Transform)gameObject.transform).getRotation());
-
-        if (projection == null || view == null) {
-            throw new RuntimeException("projection or view objects cannot be null in component");
-        }
-
-        shader.setMatrix4f("projection", projection);
-        shader.setMatrix4f("view", view);
-
-        shader.setMatrix4f("model", model);
-
-
-        glBindVertexArray(vaoID);
-        glDrawArrays(GL_TRIANGLES, 0,  36);
+        updateShader();
+        drawShape();
     }
 
     @Override
@@ -110,5 +93,28 @@ public class VertexShapeComponent extends Component implements Displayable {
             case EBO -> renderObjects.add(new EBO(indices));
             default -> throw new RuntimeException("Undefined render object");
         }
+    }
+
+    public void updateShader() {
+        shader.use();
+
+        Matrix4f model = new Matrix4f();
+        model.translate(gameObject.transform.getPos());
+        model.scale(((Transform) gameObject.transform).getScale());
+        model.rotate(((Transform) gameObject.transform).getRotation());
+
+        if (projection == null || view == null) {
+            throw new RuntimeException("projection or view objects cannot be null in component");
+        }
+
+        shader.setMatrix4f("projection", projection);
+        shader.setMatrix4f("view", view);
+
+        shader.setMatrix4f("model", model);
+    }
+
+    public void drawShape() {
+        glBindVertexArray(vaoID);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
     }
 }

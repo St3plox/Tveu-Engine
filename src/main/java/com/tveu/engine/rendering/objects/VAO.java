@@ -1,5 +1,6 @@
 package com.tveu.engine.rendering.objects;
 
+
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
