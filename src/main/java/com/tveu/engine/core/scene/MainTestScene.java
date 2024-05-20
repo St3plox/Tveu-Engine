@@ -16,10 +16,10 @@ public class MainTestScene extends SingleLightScene {
     @Override
     public void init() {
         //--------------- Adding light
-        GameObject light = new GameObject(new Transform(new Vector3f(-2.15f, -1f, 1.0f)));
+        GameObject light = new GameObject(new Transform(new Vector3f(1.2f, 1.0f, 2.0f)));
         var lightComponent = new LightCubeComponent(light);
         light.addComponent(lightComponent);
-        ((Transform) light.transform).scale(new Vector3f(0.6f));
+        ((Transform) light.transform).scale(new Vector3f(0.2f));
 
         //----------- Initializing Camera
         var ct = new CameraTransform(new Vector3f(0.0f, 0.0f, 0.0f));
@@ -46,9 +46,9 @@ public class MainTestScene extends SingleLightScene {
         ((Transform) cube1.transform).scale(new Vector3f(10.0f, 0.1f, 10.0f));*/
 
 
-        GameObject emerald = new GameObject(new Transform(new Vector3f(1.55f, 0.13f, 1.5f)));
+        GameObject emerald = new GameObject(new Transform(new Vector3f(0.0f, 0.0f, 0.0f)));
         var emeraldComp = new ReactiveCubeComponent(emerald);
-        emeraldComp.setMaterial(Material.CHROME);
+        emeraldComp.setMaterial(Material.RED_RUBBER);
         emerald.addComponent(emeraldComp);
 
 /*        GameObject suction = new GameObject(new Transform(new Vector3f(1.55f, 0.13f, -1.5f)));

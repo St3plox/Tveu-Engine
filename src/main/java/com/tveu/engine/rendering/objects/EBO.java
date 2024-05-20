@@ -25,9 +25,20 @@ public class EBO extends RenderObject {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id);
     }
 
+    @Override
+    public void unbindId() {
+        //TODO: Implement me
+    }
+
+    @Override
+    public void delete() {
+        //TODO: implement me
+    }
+
     protected void bindBufferData(int[] indices) {
         IntBuffer elementBuffer = BufferUtils.createIntBuffer(indices.length);
         elementBuffer.put(indices).flip();
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementBuffer, GL_STATIC_DRAW);
     }
+
 }
