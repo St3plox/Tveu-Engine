@@ -30,4 +30,14 @@ public class VBO extends RenderObject {
         glBindBuffer(GL_ARRAY_BUFFER, id);
     }
 
+    @Override
+    public void unbindId() {
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+    }
+
+    @Override
+    public void delete() {
+        glDeleteBuffers(id);
+    }
+
 }

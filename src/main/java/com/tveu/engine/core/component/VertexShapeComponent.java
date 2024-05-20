@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Set;
 
 import static org.lwjgl.opengl.GL15.*;
-import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
 import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
+import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 
 public class VertexShapeComponent extends Component implements Displayable {
@@ -59,12 +59,18 @@ public class VertexShapeComponent extends Component implements Displayable {
             glEnableVertexAttribArray(i);
             glBindVertexArray(i);
         }
+        renderObjects.forEach(RenderObject::unbindId);
     }
 
     @Override
     public void update(float dt) {
         updateShader();
+        updateRenderObjects(dt);
         drawShape();
+    }
+
+    public void updateRenderObjects(float dt) {
+        renderObjects.forEach(v -> v.update(dt));
     }
 
     @Override

@@ -13,11 +13,11 @@ import org.lwjgl.system.MemoryStack;
 import java.nio.IntBuffer;
 import java.util.Objects;
 
+import static java.sql.Types.NULL;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11C.*;
 import static org.lwjgl.system.MemoryStack.stackPush;
-import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
 
@@ -36,7 +36,6 @@ public class Window {
     }
 
     private static void init(int width, int height, String title) {
-
         // Setup an error callback. The default implementation
         // will print the error message in System.err.
         GLFWErrorCallback.createPrint(System.err).set();
@@ -50,7 +49,6 @@ public class Window {
         glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE);
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
         glfwWindowHint(GLFW_MAXIMIZED, GLFW_FALSE);
-
 
         // the window will be resizable
 
@@ -88,7 +86,6 @@ public class Window {
 
         // Make the OpenGL context current
         glfwMakeContextCurrent(window);
-
         // Enable v-sync
         glfwSwapInterval(1);
 
@@ -115,25 +112,25 @@ public class Window {
         // LWJGL detects the context that is current in the current thread,
         // creates the GLCapabilities instance and makes the OpenGL
         // bindings available for use.
+        GL.createCapabilities();
 
         // Set the clear color
-        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-
-        glfwSetCursorPosCallback(window, MouseListener::mousePosCallback);
-        glfwSetMouseButtonCallback(window, MouseListener::mouseButtonCallback);
-        glfwSetScrollCallback(window, MouseListener::mouseScrollCallback);
-        glfwSetKeyCallback(window, KeyListener::keyCallback);
-
-        glfwSetInputMode(window, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_DISABLED);
 
         var scene = new MainTestScene();
         scene.init();
 
         // the window or has pressed the ESCAPE key.
         while (!glfwWindowShouldClose(window)) {
-
+            glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
             // swap the color buffers
+
+            glfwSetCursorPosCallback(window, MouseListener::mousePosCallback);
+            glfwSetMouseButtonCallback(window, MouseListener::mouseButtonCallback);
+            glfwSetScrollCallback(window, MouseListener::mouseScrollCallback);
+            glfwSetKeyCallback(window, KeyListener::keyCallback);
+
+            glfwSetInputMode(window, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_DISABLED);
 
 
             if (dt >= 0) {
@@ -147,13 +144,9 @@ public class Window {
 
             glfwSwapBuffers(window);
             glfwPollEvents();
+
         }
 
     }
 
-    private void framebuffer_size_callback(long window, int width, int height) {
-        // make sure the viewport matches the new window dimensions; note that width and
-        // height will be significantly larger than specified on retina displays.
-        glViewport(0, 0, width, height);
-    }
 }
