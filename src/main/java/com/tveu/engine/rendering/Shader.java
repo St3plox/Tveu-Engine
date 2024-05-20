@@ -2,10 +2,7 @@ package com.tveu.engine.rendering;
 
 import com.tveu.engine.core.utils.FileManager;
 import org.joml.*;
-import org.lwjgl.BufferUtils;
 import org.lwjgl.system.MemoryStack;
-
-import java.nio.FloatBuffer;
 
 import static org.lwjgl.opengl.GL20.*;
 
@@ -100,13 +97,13 @@ public class Shader extends AbstractShader {
     }
 
     public void setMat3(String name, Matrix3fc matrix) {
-        try(MemoryStack stack = MemoryStack.stackPush()) {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
             glUniformMatrix3fv(glGetUniformLocation(ID, name), false, matrix.get(stack.mallocFloat(9)));
         }
     }
 
     public void setMatrix4f(String name, Matrix4fc matrix) {
-        try(MemoryStack stack = MemoryStack.stackPush()) {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
             glUniformMatrix4fv(glGetUniformLocation(ID, name), false, matrix.get(stack.mallocFloat(16)));
         }
     }
