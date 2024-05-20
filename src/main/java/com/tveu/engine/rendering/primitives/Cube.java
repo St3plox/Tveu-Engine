@@ -89,4 +89,19 @@ public class Cube extends AbstractPrimitive {
         return new Shader(CUBE_VERTEX_SHADER_PATH, CUBE_FRAGMENT_SHADER_PATH);
     }
 
+    public Material getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(Material material) {
+        this.material = material;
+    }
+
+    public Vector3f getViewPos() {
+        return viewPos;
+    }
+
+    public void setViewPos(Vector3f viewPos) {
+        this.viewPos = viewPos;
+    }
 }

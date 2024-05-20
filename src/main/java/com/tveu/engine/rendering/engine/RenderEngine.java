@@ -21,6 +21,10 @@ public class RenderEngine implements Renderer, Cleanable {
     @Override
     public void loadBathes(RenderBatch[] renderBatches) {
         instance.renderBatches = renderBatches;
+
+        for (RenderBatch renderBatch : instance.renderBatches) {
+            renderBatch.init();
+        }
     }
 
     @Override

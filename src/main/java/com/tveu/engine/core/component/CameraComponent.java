@@ -1,11 +1,12 @@
 package com.tveu.engine.core.component;
 
 import com.tveu.engine.core.CameraTransform;
+import com.tveu.engine.core.component.experimental.RenderableComponent;
 import com.tveu.engine.core.game_object.GameObject;
 import com.tveu.engine.rendering.Camera;
 import org.joml.Matrix4f;
 
-public class CameraComponent extends Component {
+public class CameraComponent extends Component implements RenderableComponent<CameraComponent> {
     protected Camera camera;
 
     private final Matrix4f view;
@@ -31,6 +32,11 @@ public class CameraComponent extends Component {
 
         view.set(camera.transform.getViewMatrix());
         projection.set(new Matrix4f().perspective((float) Math.toRadians(camera.getZoom()), (float) Camera.SCR_WIDTH / Camera.SCR_HEIGHT, 0.1f, 100f));
+    }
+
+    @Override
+    public CameraComponent getRenderableObj() {
+        return this;
     }
 
     public Matrix4f getView() {

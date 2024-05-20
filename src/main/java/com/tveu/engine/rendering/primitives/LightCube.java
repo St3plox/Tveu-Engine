@@ -57,4 +57,6 @@ public class LightCube extends AbstractPrimitive {
     Shader genShader() {
         return new Shader(LIGHT_CUBE_VERTEX_SHADER_PATH, LIGHT_CUBE_FRAGMENT_SHADER_PATH);
     }
+
+
 }
