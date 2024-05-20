@@ -1,10 +1,8 @@
 package com.tveu.engine.rendering.primitives;
 
-import com.tveu.engine.rendering.LightProperties;
 import com.tveu.engine.rendering.Shader;
 import com.tveu.engine.rendering.ShaderUniform;
 import com.tveu.engine.rendering.VertexAttribPtr;
-import com.tveu.engine.rendering.engine.RenderBatch;
 import com.tveu.engine.rendering.materials.Material;
 import com.tveu.engine.rendering.objects.RenderObject;
 import com.tveu.engine.rendering.objects.VAO;
