@@ -1,27 +1,39 @@
 package com.tveu.engine.rendering.engine;
 
-public class RenderEngine implements Renderer{
+import com.tveu.engine.rendering.Cleanable;
 
-    private final RenderEngine INSTANCE;
+public class RenderEngine implements Renderer, Cleanable {
+
+    private static RenderEngine instance;
 
     private RenderBatch[] renderBatches;
 
     public RenderEngine() {
-        INSTANCE = this;
+    }
+
+    public static RenderEngine getInstance() { // #3
+        if (instance == null) {        //если объект еще не создан
+            instance = new RenderEngine();    //создать новый объект
+        }
+        return instance;
     }
 
     @Override
     public void loadBathes(RenderBatch[] renderBatches) {
-        this.renderBatches = renderBatches;
+        instance.renderBatches = renderBatches;
     }
 
     @Override
-    public void render() {
-
+    public void render(float dt) {
+        for (RenderBatch renderBatch : instance.renderBatches) {
+            renderBatch.update(dt);
+        }
     }
 
     @Override
-    public void cleanUp() {
-
+    public void clean() {
+        for (RenderBatch renderBatch : instance.renderBatches) {
+            renderBatch.clean();
+        }
     }
 }

@@ -15,6 +15,8 @@ public abstract class RenderObject implements Updatable {
 
     protected abstract void bindId();
 
+    public abstract void unbindId();
+
     @Override
     public void update(float dt) {
     }
@@ -22,4 +24,6 @@ public abstract class RenderObject implements Updatable {
     public int getId() {
         return id;
     }
+
+    public abstract void delete();
 }

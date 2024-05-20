@@ -52,15 +52,17 @@ public class ReactiveCubeComponent extends CubeComponent implements SingleLightR
     @Override
     public void update(float dt) {
 
+
         shapeComponent.updateShader();
+
 
         shapeComponent.shader.setVec3("viewPos", viewPos.x, viewPos.y, viewPos.z);
 
         //light properties
         shapeComponent.shader.setVec3("light.position", lightPosition);
-        shapeComponent.shader.setVec3("light.ambient", ambientLight);
-        shapeComponent.shader.setVec3("light.diffuse", diffuseLight);
-        shapeComponent.shader.setVec3("light.specular", specularLight);
+        shapeComponent.shader.setVec3("light.ambient", new Vector3f(1.0f, 1.0f, 1.0f));
+        shapeComponent.shader.setVec3("light.diffuse", new Vector3f(1.0f, 1.0f, 1.0f));
+        shapeComponent.shader.setVec3("light.specular", new Vector3f(1.0f, 1.0f, 1.0f));
 
         // material properties
         shapeComponent.shader.setVec3("material.ambient", material.getAmbient());
@@ -69,6 +71,7 @@ public class ReactiveCubeComponent extends CubeComponent implements SingleLightR
         shapeComponent.shader.setFloat("material.shininess", material.getShininess());
 
         shapeComponent.drawShape();
+        shapeComponent.updateRenderObjects(dt);
     }
 
     @Override
@@ -80,50 +83,49 @@ public class ReactiveCubeComponent extends CubeComponent implements SingleLightR
     @Override
     protected float[] genVertices() {
         return new float[]{
-                -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-                0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-                0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-                0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-                -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-                -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+                -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+                0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+                0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+                0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+                -0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+                -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
 
-                -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-                0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-                0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-                0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-                -0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-                -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+                -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+                0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+                0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+                0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+                -0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+                -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
 
-                -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-                -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-                -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-                -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-                -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-                -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+                -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f,
+                -0.5f, 0.5f, -0.5f, -1.0f, 0.0f, 0.0f,
+                -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f,
+                -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f,
+                -0.5f, -0.5f, 0.5f, -1.0f, 0.0f, 0.0f,
+                -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f,
 
-                0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-                0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-                0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-                0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-                0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-                0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+                0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,
+                0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
+                0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
+                0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
+                0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f,
+                0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,
 
-                -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-                0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-                0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-                0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-                -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-                -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+                -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f,
+                0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f,
+                0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f,
+                0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f,
+                -0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f,
+                -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f,
 
-                -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-                0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-                0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-                0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-                -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-                -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
+                -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+                0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+                0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
+                0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
+                -0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
+                -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f
         };
     }
-
 
 
     @Override

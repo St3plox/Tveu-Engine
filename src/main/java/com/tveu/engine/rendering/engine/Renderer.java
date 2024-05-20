@@ -4,7 +4,5 @@ public interface Renderer {
 
     void loadBathes(RenderBatch[] renderBatches);
 
-    void render();
-
-    void cleanUp();
+    void render(float dt);
 }
