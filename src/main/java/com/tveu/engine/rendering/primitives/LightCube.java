@@ -15,6 +15,10 @@ import static com.tveu.engine.rendering.primitives.PrimitivesConstants.*;
 
 public class LightCube extends AbstractPrimitive {
 
+    public LightCube() {
+        super();
+    }
+
     @Override
     HashMap<Class<? extends RenderObject>, RenderObject> genRenderObjects() {
 

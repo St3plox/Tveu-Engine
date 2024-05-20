@@ -23,6 +23,9 @@ public abstract class AbstractPrimitive {
 
     private Matrix4f model, view, projection;
 
+    public AbstractPrimitive() {
+        model = new Matrix4f();
+    }
 
     public RenderBatch genRenderBatch() {
 

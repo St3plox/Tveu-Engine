@@ -17,6 +17,7 @@ import static com.tveu.engine.rendering.primitives.PrimitivesConstants.*;
 public class Cube extends AbstractPrimitive {
 
 
+
     protected Material material;
 
 
@@ -26,6 +27,7 @@ public class Cube extends AbstractPrimitive {
             CUBE_FRAGMENT_SHADER_PATH);
 
     public Cube() {
+        super();
     }
 
 
