@@ -30,6 +30,9 @@ public class Cube extends AbstractPrimitive {
         super();
     }
 
+    public Cube(Material material) {
+        this.material = material;
+    }
 
     @Override
     HashMap<Class<? extends RenderObject>, RenderObject> genRenderObjects() {

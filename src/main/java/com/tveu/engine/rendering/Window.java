@@ -3,6 +3,7 @@ package com.tveu.engine.rendering;
 import com.tveu.engine.core.input.KeyListener;
 import com.tveu.engine.core.input.MouseListener;
 import com.tveu.engine.core.scene.MainTestScene;
+import com.tveu.engine.core.scene.RenderTestScene;
 import com.tveu.engine.core.utils.Time;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -116,7 +117,7 @@ public class Window {
 
         // Set the clear color
 
-        var scene = new MainTestScene();
+        var scene = new RenderTestScene();
         scene.init();
 
         // the window or has pressed the ESCAPE key.

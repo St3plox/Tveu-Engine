@@ -5,6 +5,7 @@ import com.tveu.engine.core.component.experimental.RenderableComponent;
 import com.tveu.engine.rendering.LightProperties;
 import com.tveu.engine.rendering.primitives.AbstractPrimitive;
 import com.tveu.engine.rendering.primitives.Cube;
+import com.tveu.engine.rendering.primitives.LightCube;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
@@ -13,9 +14,9 @@ import java.util.List;
 
 public class SingleLightSceneRenderer {
 
-    private RenderEngine renderEngine;
+    private final RenderEngine renderEngine;
 
-    private List<AbstractPrimitive> renderPrimitives;
+    private final List<AbstractPrimitive> renderPrimitives;
     private LightProperties lightProperties;
 
     private Matrix4f view, projection;
@@ -34,8 +35,13 @@ public class SingleLightSceneRenderer {
 
         if (renderableObj instanceof AbstractPrimitive) {
             renderPrimitives.add((AbstractPrimitive) renderableObj);
+
+            if (renderableObj instanceof LightCube) {
+                this.lightProperties = ((LightCube) renderableObj).getLight();
+            }
             return;
         }
+
 
         //TODO: Replace with some sort of dto
         if (renderableObj instanceof CameraComponent) {
@@ -45,10 +51,6 @@ public class SingleLightSceneRenderer {
             return;
         }
 
-        if (renderableObj instanceof LightProperties) {
-            lightProperties = (LightProperties) renderableObj;
-            return;
-        }
 
         throw new IllegalArgumentException("Unsupported renderable type: " + renderableObj.getClass().getSimpleName());
     }

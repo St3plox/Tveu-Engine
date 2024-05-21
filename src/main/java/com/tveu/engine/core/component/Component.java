@@ -1,7 +1,9 @@
 package com.tveu.engine.core.component;
 
+import com.tveu.engine.core.Transform;
 import com.tveu.engine.core.Updatable;
 import com.tveu.engine.core.game_object.GameObject;
+import org.joml.Matrix4f;
 
 public abstract class Component implements Updatable {
 
@@ -18,6 +20,12 @@ public abstract class Component implements Updatable {
     }
 
     public void clean() {
+    }
+
+    protected void updateModel(Matrix4f model){
+        model.translate(gameObject.transform.getPos());
+        model.scale(((Transform) gameObject.transform).getScale());
+        model.rotate(((Transform) gameObject.transform).getRotation());
     }
 
     public GameObject getGameObject() {
